@@ -3,8 +3,7 @@ import { Suspense, lazy, useState } from "react";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import Home from "./pages/Home";
 import { IMovie } from "./type";
-// import Add from "./pages/Add";
-// import Edit from "./pages/Edit";
+
 
 const Add = lazy(() => import("./pages/Add"));
 const Edit = lazy(() => import("./pages/Edit"));
