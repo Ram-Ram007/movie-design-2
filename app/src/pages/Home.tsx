@@ -86,20 +86,6 @@ const Home: React.FC<IHome> = ({ handleEdit }) => {
           )}
         </div>
       </Layout>
-      {isMovieDeleted && (
-        <dialog open>
-          <article>
-            <header>
-              <a
-                aria-label="Close"
-                className="close"
-                onClick={closeDeleteDialog}
-              ></a>
-            </header>
-            <p>Successfully deleted</p>
-          </article>
-        </dialog>
-      )}
     </>
   );
 };
