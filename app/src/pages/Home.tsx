@@ -33,7 +33,6 @@ const Home: React.FC<IHome> = ({ handleEdit }) => {
   }, [refresh]);
 
   async function handleDeleteMovie(id: number) {
-    setRefresh(true);
     try {
       await deleteMovie(id);
       setIsMovieDeleted(true);
