@@ -2,14 +2,18 @@ import React, { useState, useEffect } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import Layout from "../components/layout";
 import { addMovie, updateMovie } from "../services/api";
-import { IMovie } from "../type";
+
+interface MovieData {
+  title: string;
+  year: string;
+}
 
 function MovieForm() {
   const navigate = useNavigate();
   const { id } = useParams();
   const isEditing = id !== "add";
 
-  const [movieData, setMovieData] = useState({
+  const [movieData, setMovieData] = useState<MovieData>({
     title: "",
     year: "",
   });
@@ -22,17 +26,17 @@ function MovieForm() {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setMovieData({
-      ...movieData,
+    setMovieData((prevData) => ({
+      ...prevData,
       [name]: value,
-    });
+    }));
   };
 
   const handleSubmit = async () => {
     try {
       const moviePayload = {
         title: movieData.title,
-        year: parseInt(movieData.year),
+        year: parseInt(movieData.year, 10),
       };
 
       if (isEditing) {
@@ -41,6 +45,7 @@ function MovieForm() {
         console.log("Movie updated:", response);
       } else {
         // Add a new movie
+
         const response = await addMovie(moviePayload);
         console.log("Movie added:", response);
       }
@@ -81,9 +86,10 @@ function MovieForm() {
           />
         </label>
         <div className="grid">
-          <Link to="/">
-            <button onClick={handleSubmit}>Submit</button>
-          </Link>
+          <button type="button" onClick={handleSubmit}>
+            
+            Submit
+          </button>
           <Link to="/">
             <button>Cancel</button>
           </Link>
