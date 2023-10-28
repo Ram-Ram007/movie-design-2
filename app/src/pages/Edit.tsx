@@ -1,4 +1,3 @@
-import React from "react";
 import MovieForm from "../components/MovieForm";
 
 function Edit() {
