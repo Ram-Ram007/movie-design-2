@@ -1,5 +1,5 @@
 import React from "react";
-import MovieForm from "./MovieForm";
+import MovieForm from "../components/MovieForm";
 
 function Add() {
   return <MovieForm />;
