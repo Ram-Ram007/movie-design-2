@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
-import Layout from "../components/layout";
+import Layout from "./layout";
 import { addMovie, updateMovie } from "../services/api";
 import { IMovie } from "../type";
 
