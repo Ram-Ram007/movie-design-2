@@ -1,11 +1,9 @@
 import React from "react";
+import { DeleteDialogProps } from "../type";
 
-interface DeleteDialogProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
 
-const DeleteDialog: React.FC<DeleteDialogProps> = ({ isOpen, onClose }) => {
+
+const DeleteDialog: React.FC<DeleteDialogProps> = ({ isOpen, onClose,children }) => {
   return (
     isOpen && (
       <dialog open>
@@ -13,7 +11,7 @@ const DeleteDialog: React.FC<DeleteDialogProps> = ({ isOpen, onClose }) => {
           <header>
             <a aria-label="Close" className="close" onClick={onClose}></a>
           </header>
-          <p>Successfully deleted</p>
+          {children}
         </article>
       </dialog>
     )

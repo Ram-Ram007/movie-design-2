@@ -8,6 +8,7 @@ import Layout from "../components/layout";
 import { IMovie } from "../type";
 import DeleteDialog from "../components/DeleteDialog";
 
+
 interface IHome {
   handleEdit: (movie: IMovie) => void;
 }
@@ -16,6 +17,7 @@ const Home: React.FC<IHome> = ({ handleEdit }) => {
   const [refresh, setRefresh] = useState(false);
   const [movies, setMovies] = useState<IMovie[]>([]);
   const [isMovieDeleted, setIsMovieDeleted] = useState(false);
+  
 
   useEffect(() => {
     console.log("Called once");
@@ -90,7 +92,9 @@ const Home: React.FC<IHome> = ({ handleEdit }) => {
         </div>
       </Layout>
       
-       <DeleteDialog isOpen={isMovieDeleted} onClose={closeDeleteDialog} />
+      <DeleteDialog isOpen={isMovieDeleted} onClose={closeDeleteDialog}>
+  Successfully deleted
+</DeleteDialog>
     </>
   );
 };

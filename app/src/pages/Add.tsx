@@ -3,6 +3,8 @@ import Layout from "../components/layout";
 import { addMovie } from "../services/api";
 import Form from "../components/MovieForm";
 import { IMovieAdd } from "../type";
+import { useState } from "react";
+import DeleteDialog from "../components/DeleteDialog";
 
 function AddForm() {
   const navigate = useNavigate();
@@ -10,6 +12,8 @@ function AddForm() {
     title: "",
     year: 0,
   };
+
+  const [isMovieAdded, setIsMovieAdded] = useState(false);
 
   async function handleAddMovie(movie: IMovieAdd) {
     try {
@@ -19,12 +23,17 @@ function AddForm() {
       };
       const response = await addMovie(moviePayload);
       console.log(response);
-      navigate("/");
+      setIsMovieAdded(true);
     } catch (error) {
       console.log("Errored");
       console.log(error);
     }
   }
+
+  const closeAddSuccessDialog = () => {
+    setIsMovieAdded(false);
+    navigate("/");
+  };
 
   return (
     <>
@@ -32,6 +41,10 @@ function AddForm() {
         <h1>AddForm</h1>
         <Form handleAddMovie={handleAddMovie} emptyMovie={movie} />
       </Layout>
+
+      <DeleteDialog isOpen={isMovieAdded} onClose={closeAddSuccessDialog}>
+        Successfully added
+      </DeleteDialog>
     </>
   );
 }

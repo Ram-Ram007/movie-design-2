@@ -1,13 +1,11 @@
-import { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { IMovie, IMovieAdd } from "../type";
+import { IEditForm, IMovieAdd } from "../type";
 import Layout from "../components/layout";
 import { updateMovie } from "../services/api";
 import Form from "../components/MovieForm";
+import Modal from "../components/DeleteDialog"; 
 
-interface IEditForm {
-  movie: IMovie;
-}
 const EditForm: React.FC<IEditForm> = ({ movie }) => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -15,6 +13,8 @@ const EditForm: React.FC<IEditForm> = ({ movie }) => {
     title: movie.title,
     year: movie.year,
   };
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     console.log("Getting info of ", id);
@@ -24,11 +24,17 @@ const EditForm: React.FC<IEditForm> = ({ movie }) => {
     try {
       const response = await updateMovie(editedmovie, movie.id);
       console.log(response);
-      navigate("/");
+      setIsModalOpen(true); 
     } catch (error) {
       console.log(error);
     }
   }
+
+  const closeModalAndNavigate = () => {
+    setIsModalOpen(false);
+    navigate("/");
+  };
+
   return (
     <>
       <Layout title={`EditMovie${movie.title}`}>
@@ -38,6 +44,10 @@ const EditForm: React.FC<IEditForm> = ({ movie }) => {
           type="edit"
         />
       </Layout>
+
+      <Modal isOpen={isModalOpen} onClose={closeModalAndNavigate}>
+        Successfully edited
+      </Modal>
     </>
   );
 };
