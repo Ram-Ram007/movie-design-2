@@ -14,6 +14,7 @@ function AddForm() {
   };
 
   const [isMovieAdded, setIsMovieAdded] = useState(false);
+  const [addError, setAddError] = useState<string | null>(null);
 
   async function handleAddMovie(movie: IMovieAdd) {
     try {
@@ -24,14 +25,17 @@ function AddForm() {
       const response = await addMovie(moviePayload);
       console.log(response);
       setIsMovieAdded(true);
+      setAddError(null); 
     } catch (error) {
       console.log("Errored");
       console.log(error);
+      setAddError("Error adding the movie.");
     }
   }
 
   const closeAddSuccessDialog = () => {
     setIsMovieAdded(false);
+    setAddError(null); 
     navigate("/");
   };
 
@@ -42,8 +46,8 @@ function AddForm() {
         <Form handleAddMovie={handleAddMovie} emptyMovie={movie} />
       </Layout>
 
-      <DeleteDialog isOpen={isMovieAdded} onClose={closeAddSuccessDialog}>
-        Successfully added
+      <DeleteDialog isOpen={isMovieAdded || addError !== null} onClose={closeAddSuccessDialog}>
+        {addError ? addError : "Successfully added"}
       </DeleteDialog>
     </>
   );
