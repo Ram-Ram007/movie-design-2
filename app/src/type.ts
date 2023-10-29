@@ -12,11 +12,7 @@ export interface IShowError {
   msg: string;
 }
 
-//  export interface DeleteDialogProps {
-//   isOpen: boolean;
-//   onClose: () => void;
-//   children?: React.ReactNode;
-// }
+
 export interface DeleteDialogProps {
   isOpen: boolean;
   onClose: () => void;
