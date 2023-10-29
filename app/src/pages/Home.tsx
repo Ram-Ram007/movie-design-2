@@ -4,6 +4,7 @@ import { getMovies, deleteMovie } from "../services/api";
 import "@picocss/pico";
 import Layout from "../components/layout";
 import { IMovie } from "../type";
+import DeleteDialog from "../components/DeleteDialog";
 
 interface IHome {
   handleEdit: (movie: IMovie) => void;
@@ -86,20 +87,8 @@ const Home: React.FC<IHome> = ({ handleEdit }) => {
           )}
         </div>
       </Layout>
-      {isMovieDeleted && (
-        <dialog open>
-          <article>
-            <header>
-              <a
-                aria-label="Close"
-                className="close"
-                onClick={closeDeleteDialog}
-              ></a>
-            </header>
-            <p>Successfully deleted</p>
-          </article>
-        </dialog>
-      )}
+      
+       <DeleteDialog isOpen={isMovieDeleted} onClose={closeDeleteDialog} />
     </>
   );
 };
