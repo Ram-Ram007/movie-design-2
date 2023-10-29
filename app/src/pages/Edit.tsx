@@ -1,12 +1,13 @@
+//final
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { IEditForm, IMovieAdd } from "../type";
+import { IEdit, IMovieAdd } from "../type";
 import Layout from "../components/layout";
 import { updateMovie } from "../services/api";
 import Form from "../components/MovieForm";
 import Modal from "../components/DeleteDialog";
 
-const EditForm: React.FC<IEditForm> = ({ movie }) => {
+const EditForm: React.FC<IEdit> = ({ movie }) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const editValue = {

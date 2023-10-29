@@ -7,18 +7,12 @@ export interface IMovie {
   title: string;
   year: number; 
 }
-export interface IShowError {
-  action: string;
-  msg: string;
-}
-
-
 export interface DeleteDialogProps {
   isOpen: boolean;
   onClose: () => void;
   children: React.ReactNode;
 }
 
-export interface IEditForm {
+export interface IEdit {
   movie: IMovie;
 }
