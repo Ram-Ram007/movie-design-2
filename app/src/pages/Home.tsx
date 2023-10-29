@@ -93,7 +93,7 @@ const Home: React.FC<IHome> = ({ handleEdit }) => {
       </Layout>
       
       <DeleteDialog isOpen={isMovieDeleted} onClose={closeDeleteDialog}>
-  Successfully deleted
+   deleted
 </DeleteDialog>
     </>
   );
