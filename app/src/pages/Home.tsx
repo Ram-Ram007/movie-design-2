@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getMovies, deleteMovie } from "../services/api";
@@ -7,27 +6,25 @@ import Layout from "../components/layout";
 import { IMovie } from "../type";
 import DeleteDialog from "../components/DeleteDialog";
 
-
 interface IHome {
   handleEdit: (movie: IMovie) => void;
 }
+
 const Home: React.FC<IHome> = ({ handleEdit }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [refresh, setRefresh] = useState(false);
   const [movies, setMovies] = useState<IMovie[]>([]);
   const [isMovieDeleted, setIsMovieDeleted] = useState(false);
-  
+  const [deleteError, setDeleteError] = useState<string | null>(null);
 
   useEffect(() => {
-    console.log("Called once");
-
     async function getMoviesFromAPI() {
       setIsLoading(true);
       try {
         const response = await getMovies();
         setMovies(response.data);
       } catch (error) {
-        console.log(error);
+        console.error("Error fetching movies:", error);
       } finally {
         setIsLoading(false);
       }
@@ -43,6 +40,7 @@ const Home: React.FC<IHome> = ({ handleEdit }) => {
       setIsMovieDeleted(true);
     } catch (error) {
       console.error("Error deleting movie:", error);
+      setDeleteError("Error deleting the movie.");
     } finally {
       setRefresh(false);
     }
@@ -50,6 +48,7 @@ const Home: React.FC<IHome> = ({ handleEdit }) => {
 
   const closeDeleteDialog = () => {
     setIsMovieDeleted(false);
+    setDeleteError(null);
   };
 
   return (
@@ -90,10 +89,10 @@ const Home: React.FC<IHome> = ({ handleEdit }) => {
           )}
         </div>
       </Layout>
-      
-      <DeleteDialog isOpen={isMovieDeleted} onClose={closeDeleteDialog}>
-  Successfully deleted
-</DeleteDialog>
+
+      <DeleteDialog isOpen={isMovieDeleted || deleteError !== null} onClose={closeDeleteDialog}>
+        {deleteError ? deleteError : "Successfully deleted"}
+      </DeleteDialog>
     </>
   );
 };
