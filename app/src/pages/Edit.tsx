@@ -4,7 +4,7 @@ import { IEditForm, IMovieAdd } from "../type";
 import Layout from "../components/layout";
 import { updateMovie } from "../services/api";
 import Form from "../components/MovieForm";
-import Modal from "../components/DeleteDialog"; 
+import Modal from "../components/DeleteDialog";
 
 const EditForm: React.FC<IEditForm> = ({ movie }) => {
   const { id } = useParams();
@@ -15,6 +15,7 @@ const EditForm: React.FC<IEditForm> = ({ movie }) => {
   };
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editError, setEditError] = useState<string | null>(null); 
 
   useEffect(() => {
     console.log("Getting info of ", id);
@@ -24,15 +25,17 @@ const EditForm: React.FC<IEditForm> = ({ movie }) => {
     try {
       const response = await updateMovie(editedmovie, movie.id);
       console.log(response);
-      setIsModalOpen(true); 
+      setIsModalOpen(true);
+      setEditError(null); 
     } catch (error) {
       console.log(error);
+      setEditError("Error editing the movie."); 
     }
   }
 
   const closeModalAndNavigate = () => {
     setIsModalOpen(false);
-    navigate("/");
+    setEditError(null);    navigate("/");
   };
 
   return (
@@ -46,7 +49,7 @@ const EditForm: React.FC<IEditForm> = ({ movie }) => {
       </Layout>
 
       <Modal isOpen={isModalOpen} onClose={closeModalAndNavigate}>
-        Successfully edited
+        {editError ? editError : "Successfully edited"}
       </Modal>
     </>
   );
