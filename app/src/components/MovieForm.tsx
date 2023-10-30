@@ -1,12 +1,8 @@
-
 //finall
 import { useState } from "react";
-import { IMovieAdd } from "../type";
-interface IForm {
-  handleAddMovie: (movie: IMovieAdd) => void;
-  emptyMovie: IMovieAdd;
-  type?: string;
-}
+import { IForm } from "../type";
+import { Link } from "react-router-dom";
+
 const Form: React.FC<IForm> = ({ handleAddMovie, emptyMovie, type }) => {
   const [movie, setMovie] = useState({
     title: emptyMovie.title,
@@ -24,8 +20,7 @@ const Form: React.FC<IForm> = ({ handleAddMovie, emptyMovie, type }) => {
   }
   return (
     <form onSubmit={(e) => handleSubmit(e)}>
-      <label htmlFor="title">
-        Title
+      <label>
         <input
           type="text"
           id="title"
@@ -43,7 +38,7 @@ const Form: React.FC<IForm> = ({ handleAddMovie, emptyMovie, type }) => {
           type="number"
           id="year"
           name="year"
-          value={movie.year}
+          value={movie.year?.toString() || ""}
           placeholder="Year"
           onChange={(e) => handleChange(e)}
           required
@@ -53,7 +48,9 @@ const Form: React.FC<IForm> = ({ handleAddMovie, emptyMovie, type }) => {
       {type === "edit" ? (
         <>
           <button type="submit">Save</button>
-          <button>cancel</button>
+          <Link to="/" role="button" className="secondary">
+            cancel
+          </Link>
         </>
       ) : (
         <>

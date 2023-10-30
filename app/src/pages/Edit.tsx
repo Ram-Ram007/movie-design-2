@@ -16,7 +16,7 @@ const EditForm: React.FC<IEdit> = ({ movie }) => {
   };
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editError, setEditError] = useState<string | null>(null); 
+  const [editError, setEditError] = useState<string | null>(null);
 
   useEffect(() => {
     console.log("Getting info of ", id);
@@ -27,21 +27,23 @@ const EditForm: React.FC<IEdit> = ({ movie }) => {
       const response = await updateMovie(editedmovie, movie.id);
       console.log(response);
       setIsModalOpen(true);
-      setEditError(null); 
+      setEditError(null);
     } catch (error) {
       console.log(error);
-      setEditError("Error editing the movie."); 
+      setEditError("Error editing the movie.");
     }
   }
 
   const closeModalAndNavigate = () => {
     setIsModalOpen(false);
-    setEditError(null);    navigate("/");
+    setEditError(null);
+    navigate("/");
   };
 
   return (
     <>
       <Layout title={`EditMovie${movie.title}`}>
+        <h1>Edit Form</h1>
         <Form
           handleAddMovie={handleEditMovie}
           emptyMovie={editValue}
@@ -49,7 +51,10 @@ const EditForm: React.FC<IEdit> = ({ movie }) => {
         />
       </Layout>
 
-      <Modal isOpen={isModalOpen} onClose={closeModalAndNavigate}>
+      <Modal
+        isOpen={isModalOpen || editError !== null}
+        onClose={closeModalAndNavigate}
+      >
         {editError ? editError : "Successfully edited"}
       </Modal>
     </>
