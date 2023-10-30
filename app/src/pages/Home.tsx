@@ -18,7 +18,7 @@ const Home: React.FC<IHome> = ({ handleEdit }) => {
   const [isMovieDeleted, setIsMovieDeleted] = useState(false);
   const [deleteError, setDeleteError] = useState<string | null>(null);
 
-  // Initialize loading state for each movie
+  
   const [movieLoadingStates, setMovieLoadingStates] = useState<boolean[]>([]);
 
   useEffect(() => {
@@ -42,7 +42,7 @@ const Home: React.FC<IHome> = ({ handleEdit }) => {
   }, [refresh]);
 
   async function handleDeleteMovie(id: number, index: number) {
-    // Create a copy of the loading state array and set loading for the specific movie
+    
     const updatedLoadingStates = [...movieLoadingStates];
     updatedLoadingStates[index] = true;
     setMovieLoadingStates(updatedLoadingStates);
