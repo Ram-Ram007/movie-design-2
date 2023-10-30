@@ -4,8 +4,8 @@ import { getMovies, deleteMovie } from "../services/api";
 import "@picocss/pico";
 import Layout from "../components/layout";
 import { IMovie } from "../type";
-import DeleteDialog from "../components/DeleteDialog";
 import LoadingIcon from "../components/Loading/LoadingIcon";
+import Model from "../components/Model";
 
 interface IHome {
   handleEdit: (movie: IMovie) => void;
@@ -46,7 +46,7 @@ const Home: React.FC<IHome> = ({ handleEdit }) => {
     const updatedLoadingStates = [...movieLoadingStates];
     updatedLoadingStates[index] = true;
     setMovieLoadingStates(updatedLoadingStates);
-    console.log(updatedLoadingStates)
+    console.log(updatedLoadingStates);
 
     try {
       await deleteMovie(id);
@@ -103,12 +103,12 @@ const Home: React.FC<IHome> = ({ handleEdit }) => {
         </div>
       </Layout>
 
-      <DeleteDialog
+      <Model
         isOpen={isMovieDeleted || deleteError !== null}
         onClose={closeDeleteDialog}
       >
         {deleteError ? deleteError : "Successfully deleted"}
-      </DeleteDialog>
+      </Model>
     </>
   );
 };
