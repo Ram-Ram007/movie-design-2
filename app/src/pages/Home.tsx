@@ -46,6 +46,7 @@ const Home: React.FC<IHome> = ({ handleEdit }) => {
     const updatedLoadingStates = [...movieLoadingStates];
     updatedLoadingStates[index] = true;
     setMovieLoadingStates(updatedLoadingStates);
+    console.log(updatedLoadingStates)
 
     try {
       await deleteMovie(id);
