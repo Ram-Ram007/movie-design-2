@@ -27,7 +27,7 @@ const Home: React.FC<IHome> = ({ handleEdit }) => {
       try {
         const response = await getMovies();
         setMovies(response.data);
-        // Initialize loading state for each movie
+        
         setMovieLoadingStates(new Array(response.data.length).fill(false));
       } catch (error) {
         console.error("Error fetching movies:", error);
