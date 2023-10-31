@@ -19,8 +19,9 @@ const Home: React.FC<IHome> = ({ handleEdit }) => {
   const [deleteError, setDeleteError] = useState<string | null>(null);
 
   
-  const [movieLoadingStates, setMovieLoadingStates] = useState<boolean[]>([]);
-
+  const [movieLoadingStates, setMovieLoadingStates] = useState<number | null>(
+    null
+  );
   useEffect(() => {
     async function getMoviesFromAPI() {
       setIsLoading(true);
@@ -28,7 +29,7 @@ const Home: React.FC<IHome> = ({ handleEdit }) => {
         const response = await getMovies();
         setMovies(response.data);
 
-        setMovieLoadingStates(new Array(response.data.length).fill(false));
+        
       } catch (error) {
         console.error("Error fetching movies:", error);
         setDeleteError("Network error");
