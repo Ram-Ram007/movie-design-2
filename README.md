@@ -1,3 +1,2 @@
-# Created Route.
+# Created Movie app that fetch data from API using axios.
 
-# Added loading
