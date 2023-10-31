@@ -18,6 +18,7 @@ const Form: React.FC<IForm> = ({ handleAddMovie, emptyMovie, type }) => {
   }
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    setIsLoading(true);
     handleAddMovie(movie);
   }
   return (
