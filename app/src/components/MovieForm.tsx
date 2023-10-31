@@ -60,7 +60,9 @@ const Form: React.FC<IForm> = ({ handleAddMovie, emptyMovie, type }) => {
         </>
       ) : (
         <>
-          <button type="submit">add movie</button>
+          <button type="submit" disabled={isLoading}>
+            {isLoading && <LoadingIcon />} Add
+          </button>
         </>
       )}
     </form>
