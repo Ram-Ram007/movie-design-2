@@ -29,7 +29,7 @@ const Home: React.FC<IHome> = ({ handleEdit }) => {
         const response = await getMovies();
         setMovies(response.data);
 
-        
+        // setMovieLoadingStates(new Array(response.data.length).fill(false));
       } catch (error) {
         console.error("Error fetching movies:", error);
         setDeleteError("Network error");
@@ -42,12 +42,10 @@ const Home: React.FC<IHome> = ({ handleEdit }) => {
     getMoviesFromAPI();
   }, [refresh]);
 
-  async function handleDeleteMovie(id: number, index: number) {
+  async function handleDeleteMovie(id: number) {
     
-    const updatedLoadingStates = [...movieLoadingStates];
-    updatedLoadingStates[index] = true;
-    setMovieLoadingStates(updatedLoadingStates);
-    console.log(updatedLoadingStates);
+    setMovieLoadingStates(id);
+    
 
     try {
       await deleteMovie(id);
@@ -57,8 +55,8 @@ const Home: React.FC<IHome> = ({ handleEdit }) => {
       console.error("Error deleting movie:", error);
       setDeleteError("Error deleting the movie.");
     } finally {
-      updatedLoadingStates[index] = false;
-      setMovieLoadingStates(updatedLoadingStates);
+      // updatedLoadingStates[index] = false;
+      // setMovieLoadingStates(updatedLoadingStates);
     }
   }
 
