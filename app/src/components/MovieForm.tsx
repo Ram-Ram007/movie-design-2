@@ -9,6 +9,8 @@ const Form: React.FC<IForm> = ({ handleAddMovie, emptyMovie, type }) => {
     year: emptyMovie.year,
   });
 
+  const [isLoading, setIsLoading] = useState(false);
+
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
     setMovie({ ...movie, [name]: value });
