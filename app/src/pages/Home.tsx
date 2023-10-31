@@ -18,7 +18,6 @@ const Home: React.FC<IHome> = ({ handleEdit }) => {
   const [isMovieDeleted, setIsMovieDeleted] = useState(false);
   const [deleteError, setDeleteError] = useState<string | null>(null);
 
-  
   const [movieLoadingStates, setMovieLoadingStates] = useState<number | null>(
     null
   );
@@ -43,9 +42,7 @@ const Home: React.FC<IHome> = ({ handleEdit }) => {
   }, [refresh]);
 
   async function handleDeleteMovie(id: number) {
-    
     setMovieLoadingStates(id);
-    
 
     try {
       await deleteMovie(id);
@@ -81,7 +78,7 @@ const Home: React.FC<IHome> = ({ handleEdit }) => {
             {isLoading ? <LoadingIcon /> : <>refresh list</>}
           </button>
           <div className="grid">
-            {movies.map((m, index) => (
+            {movies.map((m) => (
               <article key={m.id}>
                 <h1>{m.title}</h1>
                 <h1>{m.year}</h1>
@@ -90,11 +87,11 @@ const Home: React.FC<IHome> = ({ handleEdit }) => {
                   <button onClick={() => handleEdit(m)}>Edit</button>
                 </Link>
                 <button
-                  disabled={movieLoadingStates[index]}
-                  onClick={() => handleDeleteMovie(m.id, index)}
+                  disabled={movieLoadingStates === m.id}
+                  onClick={() => handleDeleteMovie(m.id)}
                   className="pico-link"
                 >
-                  {movieLoadingStates[index] ? <LoadingIcon /> : <>Delete</>}
+                  {movieLoadingStates === m.id ? <LoadingIcon /> : <>Delete</>}
                 </button>
               </article>
             ))}
